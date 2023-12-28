@@ -1,6 +1,5 @@
 # ThinkSharp.Licensing
 
-
 [![Build status](https://ci.appveyor.com/api/projects/status/l3aagqmbfmgxwv3t?svg=true)](https://ci.appveyor.com/project/JanDotNet/thinksharp-licensing)
 [![NuGet](https://img.shields.io/nuget/v/ThinkSharp.Licensing.svg)](https://www.nuget.org/packages/ThinkSharp.Licensing/) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE.TXT)
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=MSBFDUU5UUQZL)
@@ -9,9 +8,9 @@
 
 **ThinkSharp.Licensing** is a simple library with fluent API for creating and verifying signed licenses. It provides the following functionallities:
 
-* Creation / verification of hardware identifiers (Windows only)
-* Creation / verification of serial numbers
-* Creation / verification of signed licenses
+* verification of hardware identifiers (Windows only)
+* verification of serial numbers
+* verification of signed licenses
 
 ## Installation
 
@@ -32,59 +31,9 @@ The class `SignedLicense` encapsulates some license related information and a si
 
 The static `Lic` class is the entry point for the fluent API that allows to work with signed licenses. It has the following static properties:
 
-* **Lic.Builder:** Object for creating signed license objects
 * **Lic.Verifyer:** Object for verifiying serialized signed licenses and deserialize it.
-* **Lic.KeyGenerator:** Object for creating private/public key pairs to use for signing
 
 #### Usage
-
-**Create signed licenses**
-
-```csharp
-SignedLicense license = Lic.Builder
-    .WithRsaPrivateKey(pk)                                           // .WithSigner(ISigner)
-    .WithHardwareIdentifier(HardwareIdentifier.ForCurrentComputer()) // .WithoutHardwareIdentifier()
-    .WithSerialNumber(SerialNumber.Create("ABC"))                    // .WithoutSerialNumber()
-    .WithoutExpiration()                                             // .ExpiresIn(TimeSpan), .ExpiresOn(DateTime)
-    .WithProperty("Name", "Bill Gates")
-    .WithProperty("Company", "Microsoft")                            //... other key value pairs
-    .SignAndCreate();
-```
-
-**Serialize License**
-
-The `SignedLicense` can be serialized as encrypted base64 encoded string (default):
-
-```csharp
-var encryptedText = license.Serialize();
-
-// FW9JbxVRYW8hcWBVZ3VHbGosEBxfYhlMZmshHHUxGBVbHBksc3
-// 9EHywLc2NNaWIsE39YaAxFbXo7BhhSYxwhZmBJYSAGGxkuEhUj
-// GREwFw08GxsxEBc8GywLER8jGBAuGRQ1EgEzExc5Ehs0GSAGZU
-// BsRRdOQk1tAGptX0RyLSdPRExxQUN1EWxoQ19jWE5nVCAGahJm
-// Ek8/GhFwSwY7ehk3Sm4+cRk4EFh4GVkydFh0U0NURAZUWBVnbW
-// 9eXQ5JTWtgElI4cHxaBFtEQ2ZBGlFiSmR5bWsuEHRfAENAYx8+
-// U09vQmM+Tg5SakFmcmxKFWM9YQ4yR2NVSVdidUwnE1BuS0BLeX
-// tbU0tifnNDQ25teVZjcXl2H2pQVnk7QEBTC19FXFRGeGs6T1FX
-// SUR0YmprFmknHRA5VBpOeUdYHQ==
-```
-
-or as plain text string:
-
-```csharp
-var plainText = license.SerializePlainText();
-
-// 5BED5GAB-E5TGXKGK-01SI8MFF-7T099W78-SRH4
-// SNABC-3RTC-DMW7-9SC1-MAHA
-// 08/28/2017 00:00:00
-// 12/31/9999 23:59:59
-// Name:Bill Gates
-// Company:Microsoft
-// A3g2b310qk+7Q86jC2Z890ut2x3TuxxbUd+Xs4fMBRv/HmFl9s
-// 9PQV/zEcKM1pcjIuFJ/0YS+bAC22xnnbN2e/SJljYMK5N1J/3g
-// NYbvcUa+8qokmGRZZsfnURBcCaRwbQTz4KQvT7kaR+rIwuGXF6
-// dpViixIKj6D+618t7BRfY=
-```
 
 **Verify License**
 
@@ -95,16 +44,6 @@ SignedLicense license = Lic.Verifier
 			   .WithRsaPublicKey(publicKey)       // .WithSigner(ISigner)
 		    	   .WithApplicationCode("ABC")        // .WithoutApplicationCode
 		           .LoadAndVerify(licenseText);
-```
-		    
-**Create public/private key Pair**
-
-A public and private key pair can be generated using the `Lic.KeyGenerator` object:
-
-```csharp
-SigningKeyPair pair = Lic.KeyGenerator.GenerateRsaKeyPair();
-Console.WriteLine(pair.PrivateKey);
-Console.WriteLine(pair.PublicKey);
 ```
 
 ### Hardware Identifier
@@ -131,26 +70,6 @@ if (!HardwareIdentifier.IsCheckSumValid(hardwareIdentifier))
 if (!HardwareIdentifier.IsValidForCurrentComputer(hardwareIdentifier))
 {
     Console.WriteLine("Entered license is not valid for this computer.");
-}
-```
-
-### Serial Number
-
-
-A serial number is an identifier with an alpha-numeric application code (3 character), some random characters and a check sum. It looks like SNXXX-YYYY-YYYY-YYYY-ZZZ where XXX is the application code, YYYY is the random part and ZZZ is the check sum. E.g.: 
-
-    SNABC-D156-KYJF-C4M5-1H96    
-
-#### Usage
-
-```csharp
-// ABC = application code
-string serialNumber = SerialNumber.Create("ABC");
-    
-// Validate CheckSum
-if (!SerialNumber.IsCheckSumValid(serialNumber))
-{
-    Console.WriteLine("Entered serial number is not valid.");
 }
 ```
           
