@@ -12,12 +12,6 @@
 * verification of serial numbers
 * verification of signed licenses
 
-## Installation
-
-ThinkSharp.Licensing can be installed via [Nuget](https://www.nuget.org/packages/Thinksharp.Licensing)
-
-      Install-Package ThinkSharp.Licensing 
-
 ## API Reference
 
 ### Singed License
