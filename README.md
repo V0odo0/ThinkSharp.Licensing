@@ -1,4 +1,4 @@
-# ThinkSharp.Licensing
+# ThinkSharp.Licensing.Client
 
 [![Build status](https://ci.appveyor.com/api/projects/status/l3aagqmbfmgxwv3t?svg=true)](https://ci.appveyor.com/project/JanDotNet/thinksharp-licensing)
 [![NuGet](https://img.shields.io/nuget/v/ThinkSharp.Licensing.svg)](https://www.nuget.org/packages/ThinkSharp.Licensing/) [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE.TXT)
