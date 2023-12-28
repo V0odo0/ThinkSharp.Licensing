@@ -12,17 +12,7 @@ namespace ThinkSharp.Licensing
   /// </summary>
   public static class Lic
   {
-    /// <summary>
-    /// Creates a new builder for creating signed license objects.
-    /// </summary>
-    public static IBuilder_Signer Builder => new LicBuilder();
-
-    /// <summary>
-    /// Creates a new key generator for creating private / public key pairs.
-    /// </summary>
-    public static IKeyGenerator KeyGenerator => new LicKeyGenerator();
-
-    /// <summary>
+      /// <summary>
     /// Creates a new verifier for verify license strings.
     /// </summary>
     public static IVerifier_Signer Verifier => new LicVerifier();

@@ -12,17 +12,6 @@ namespace ThinkSharp.Licensing.Signing
     public interface ISigner
     {
         /// <summary>
-        /// Creates a signature for the specified content.
-        /// </summary>
-        /// <param name="content">
-        /// The content to sign.
-        /// </param>
-        /// <returns>
-        /// The signature of the specified content.
-        /// </returns>
-        string Sign(string content);
-
-        /// <summary>
         /// Verifies, whether the signature is valid for the specified content.
         /// </summary>
         /// <param name="content">

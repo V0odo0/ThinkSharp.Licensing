@@ -114,15 +114,6 @@ namespace ThinkSharp.Licensing
             return sb.ToString();
         }
 
-        /// <summary>
-        /// Serializes the license as encrypted base64 encoded text.
-        /// </summary>
-        /// <returns></returns>
-        public string Serialize()
-        {
-            return SignedLicenseEncryption.Encrypt(SerializeAsPlainText());
-        }
-
         private static SignedLicense ReadLicenseFile(string[] lines)
         {
             try
@@ -158,15 +149,6 @@ namespace ThinkSharp.Licensing
 
             if (!signer.Verify(sb.ToString(), Signature))
                 ThrowInvalidSignatureException();
-        }
-
-        internal void Sign(ISigner signer)
-        {
-            var sb = new StringBuilder();
-
-            WriteLicenseProperties(sb);
-
-            Signature = signer.Sign(sb.ToString());
         }
 
         private void WriteSignature(StringBuilder sb)

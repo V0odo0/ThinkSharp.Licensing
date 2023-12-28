@@ -43,16 +43,6 @@ namespace ThinkSharp.Licensing.Signing.RSA
             return myCryptoServiceProvider.VerifyData(bytesContent, myHashAlgo, bytesSignature);
         }
 
-        public string Sign(string content)
-        {
-            var bytes = Encoding.UTF8.GetBytes(content);
-            var signature = myCryptoServiceProvider.SignData(bytes, myHashAlgo);
-            UnConfuse(signature);
-            var base64Signing = Convert.ToBase64String(signature);
-
-            return base64Signing;
-        }
-
         private static void UnConfuse(byte[] bytes)
         {
             var confusingBytes = new byte[] { 2, 43, 2, 54, 199, 3, 43 };
