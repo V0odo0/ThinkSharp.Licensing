@@ -12,6 +12,9 @@ namespace ThinkSharp.Licensing
   /// </summary>
   public static class Lic
   {
+        public static string EnvironmentNewLine = Environment.NewLine;
+        public static DateTime DateTimeMax = DateTime.MaxValue;
+
       /// <summary>
     /// Creates a new verifier for verify license strings.
     /// </summary>

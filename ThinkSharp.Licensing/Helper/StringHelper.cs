@@ -10,7 +10,7 @@ namespace ThinkSharp.Licensing.Helper
     public static class StringHelper
     {
         public static string Wrap(this string singleLineString, int columns)
-            => string.Join(Environment.NewLine, singleLineString.Split(columns));
+            => string.Join(Lic.EnvironmentNewLine, singleLineString.Split(columns));
 
         public static IEnumerable<string> Split(this string str, int chunkSize)
         {
@@ -27,7 +27,7 @@ namespace ThinkSharp.Licensing.Helper
         {
             if (stringWithLineBreaks == null)
                 throw new ArgumentNullException(nameof(stringWithLineBreaks));
-            return stringWithLineBreaks.Replace(Environment.NewLine, "");
+            return stringWithLineBreaks.Replace(Lic.EnvironmentNewLine, "");
         }
     }
 }

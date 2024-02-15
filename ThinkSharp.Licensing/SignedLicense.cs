@@ -76,7 +76,7 @@ namespace ThinkSharp.Licensing
         /// <summary>
         /// Gets a value that indicates if the license expires.
         /// </summary>
-        public bool HasExpirationDate => ExpirationDate != DateTime.MaxValue;
+        public bool HasExpirationDate => ExpirationDate != Lic.DateTimeMax;
 
         //  Methods
         // ////////////////////////////////////////////////////////////////////
@@ -86,14 +86,14 @@ namespace ThinkSharp.Licensing
         {
             if (string.IsNullOrEmpty(content))
                 throw new ArgumentException($"'{nameof(content)}' must not null or empty.");
-            var firstLine = content.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries).First();
+            var firstLine = content.Split(new[] { Lic.EnvironmentNewLine }, StringSplitOptions.RemoveEmptyEntries).First();
             var isEncrypted = !Licensing.HardwareIdentifier.IsCheckSumValid(firstLine);
             if (isEncrypted)
             {
                 content = content.Unwrap();
                 content = SignedLicenseEncryption.Dencrypt(content);
             }
-            var lines = (content ?? "").Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+            var lines = (content ?? "").Split(new[] { Lic.EnvironmentNewLine }, StringSplitOptions.RemoveEmptyEntries);
 
             if (lines.Length < 4)
                 ThrowInvalidFormatException();
